@@ -16,7 +16,7 @@ export const SearchContainer = styled.div`
 `;
 
 export const SortButton = styled.button`
-  width: 20%
+  width: 20%;
 `;
 
 export const SearchInput = styled.input`
