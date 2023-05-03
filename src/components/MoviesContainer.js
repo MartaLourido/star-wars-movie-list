@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react';
 
 import MovieList from './MovieList';
 
-const MoviesContainer = () => {
+const MoviesContainer = ({ sortBy }) => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -25,6 +25,20 @@ const MoviesContainer = () => {
     fetchMovies();
   }, []);
 
+  useEffect(() => {
+    const sortedMovies = [...movies];
+  
+    if (sortBy === 'episodes') {
+      sortedMovies.sort((movieA, movieB) => movieA.episode_id - movieB.episode_id);
+    } else if (sortBy === 'year') {
+      sortedMovies.sort(
+        (movieA, movieB) => new Date(movieA.release_date) - new Date(movieB.release_date)
+      );
+    }
+  
+    setMovies(sortedMovies);
+  }, [sortBy, movies]);
+  
 
   return (
     <Container>

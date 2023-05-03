@@ -1,13 +1,20 @@
+import React, { useState } from 'react';
+
 import { AppContainer } from './styles/AppStyles';
 import Header from './components/Header';
 import MoviesContainer from './components/MoviesContainer';
-import React from 'react';
 
 const App = () => {
+  const [sortBy, setSortBy] = useState('');
+
+  const handleSort = (option) => {
+    setSortBy(option);
+  };
+
   return (
     <AppContainer>
-      <Header />
-      <MoviesContainer/>
+      <Header onSort={handleSort} />
+      <MoviesContainer sortBy={sortBy} />
     </AppContainer>
   );
 };
