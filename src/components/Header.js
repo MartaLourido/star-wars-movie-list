@@ -36,7 +36,7 @@ const Header = ({ onSort, onSearch }) => {
         </SortOptionsContainer>
       )}
       <SearchContainer>
-        <SearchInput type="text" placeholder="🔍 Search..." onChange={handleSearch} />
+        <SearchInput type="text" placeholder="🔍 Type to search..." onChange={handleSearch} />
       </SearchContainer>
     </StyledHeader>
   );
