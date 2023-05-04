@@ -6,6 +6,7 @@ import {
 } from '../styles/MoviesContainerStyles';
 import React, { useEffect, useState } from 'react';
 
+import EmptyState from './EmptyState';
 import MovieList from './MovieList';
 
 const MoviesContainer = ({ sortBy, searchQuery }) => {
@@ -67,10 +68,7 @@ const MoviesContainer = ({ sortBy, searchQuery }) => {
             <p>{selectedMovie.opening_crawl}</p>
           </>
         ) : (
-          <>
-            <h2>No movie selected</h2>
-            <p></p>
-          </>
+          <EmptyState text="No movie selected" />
         )}
       </RightContainer>
     </Container>

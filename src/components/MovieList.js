@@ -1,10 +1,11 @@
 import { Episode, List, ListItem, MovieTitle, ReleaseDate } from '../styles/MovieListStyles';
 
+import EmptyState from './EmptyState';
 import React from 'react';
 
 const MovieList = ({ movies, handleClick }) => {
   if (!movies || movies.length === 0) {
-    return <div>No movies found</div>;
+    return  <EmptyState text="No movies found"/>;
   }
 
   return (
