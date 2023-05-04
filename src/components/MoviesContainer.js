@@ -17,7 +17,6 @@ const MoviesContainer = ({ sortBy }) => {
         const response = await fetch('https://swapi.dev/api/films/');
         const data = await response.json();
         setMovies(data.results);
-        console.log(data); // TODO: Remove
       } catch (error) {
         console.log(error);
       }
@@ -25,28 +24,25 @@ const MoviesContainer = ({ sortBy }) => {
     fetchMovies();
   }, []);
 
-  useEffect(() => {
-    const sortedMovies = [...movies];
-  
-    if (sortBy === 'episodes') {
-      sortedMovies.sort((movieA, movieB) => movieA.episode_id - movieB.episode_id);
-    } else if (sortBy === 'year') {
-      sortedMovies.sort(
-        (movieA, movieB) => new Date(movieA.release_date) - new Date(movieB.release_date)
-      );
-    }
-  
-    setMovies(sortedMovies);
-  }, [sortBy, movies]);
-  
-
   return (
     <Container>
       <LeftContainer>
-        <MovieList movies={movies} />
+        <MovieList
+          movies={movies.sort((movieA, movieB) => {
+            if (sortBy === 'episodes') {
+              return movieA.episode_id - movieB.episode_id;
+            } else if (sortBy === 'year') {
+              return new Date(movieA.release_date) - new Date(movieB.release_date);
+            }
+            return null;
+          })}
+        />
       </LeftContainer>
       <Divider />
-      <RightContainer></RightContainer>
+      <RightContainer>
+        <h2>{movies[0]?.title || 'Select a movie'}</h2>
+        <p>{movies[0]?.opening_crawl || ''}</p>
+      </RightContainer>
     </Container>
   );
 };
