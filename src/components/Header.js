@@ -9,12 +9,18 @@ import {
 } from '../styles/HeaderStyles';
 import React, { useState } from 'react';
 
-const Header = ({ onSort }) => {
+const Header = ({ onSort, onSearch }) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
   const handleSort = (option) => {
     setIsDropdownVisible(false);
     onSort(option);
+  };
+
+  const handleSearch = (event) => {
+    if (event.key === 'Enter') {
+      onSearch(event.target.value.toLowerCase());
+    }
   };
 
   return (
@@ -32,7 +38,7 @@ const Header = ({ onSort }) => {
         </SortOptionsContainer>
       )}
       <SearchContainer>
-        <SearchInput type="text" placeholder="🔍 Search..." />
+        <SearchInput type="text" placeholder="🔍 Search..." onKeyDown={handleSearch} />
       </SearchContainer>
     </StyledHeader>
   );

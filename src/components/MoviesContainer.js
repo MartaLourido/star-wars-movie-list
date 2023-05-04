@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react';
 
 import MovieList from './MovieList';
 
-const MoviesContainer = ({ sortBy }) => {
+const MoviesContainer = ({ sortBy, searchQuery }) => {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
 
@@ -28,21 +28,24 @@ const MoviesContainer = ({ sortBy }) => {
   const handleClick = (movie) => {
     setSelectedMovie(movie);
   };
-  
+
+  const filteredMovies = movies.filter(movie =>
+    movie.title.toLowerCase().includes(searchQuery?.toLowerCase() ?? '')
+  );  
+
+  const sortedMovies = filteredMovies.sort((movieA, movieB) => {
+    if (sortBy === 'episodes') {
+      return movieA.episode_id - movieB.episode_id;
+    } else if (sortBy === 'year') {
+      return new Date(movieA.release_date) - new Date(movieB.release_date);
+    }
+    return null;
+  });
+
   return (
     <Container>
       <LeftContainer>
-        <MovieList
-          movies={movies.sort((movieA, movieB) => {
-            if (sortBy === 'episodes') {
-              return movieA.episode_id - movieB.episode_id;
-            } else if (sortBy === 'year') {
-              return new Date(movieA.release_date) - new Date(movieB.release_date);
-            }
-            return null;
-          })}
-          handleClick={handleClick}
-        />
+        <MovieList movies={sortedMovies} handleClick={handleClick} />
       </LeftContainer>
       <Divider />
       <RightContainer>
