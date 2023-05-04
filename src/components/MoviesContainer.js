@@ -10,6 +10,7 @@ import MovieList from './MovieList';
 
 const MoviesContainer = ({ sortBy }) => {
   const [movies, setMovies] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -24,6 +25,10 @@ const MoviesContainer = ({ sortBy }) => {
     fetchMovies();
   }, []);
 
+  const handleClick = (movie) => {
+    setSelectedMovie(movie);
+  };
+  
   return (
     <Container>
       <LeftContainer>
@@ -36,12 +41,13 @@ const MoviesContainer = ({ sortBy }) => {
             }
             return null;
           })}
+          handleClick={handleClick}
         />
       </LeftContainer>
       <Divider />
       <RightContainer>
-        <h2>{movies[0]?.title || 'Select a movie'}</h2>
-        <p>{movies[0]?.opening_crawl || ''}</p>
+        <h2>{selectedMovie?.title || 'No movie selected'}</h2>
+        <p>{selectedMovie?.opening_crawl || ''}</p>
       </RightContainer>
     </Container>
   );

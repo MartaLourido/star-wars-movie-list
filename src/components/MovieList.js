@@ -2,7 +2,7 @@ import { Episode, List, ListItem, MovieTitle, ReleaseDate } from '../styles/Movi
 
 import React from 'react';
 
-const MovieList = ({ movies }) => {
+const MovieList = ({ movies, handleClick }) => {
   if (!movies || movies.length === 0) {
     return <div>No movies found</div>;
   }
@@ -10,7 +10,7 @@ const MovieList = ({ movies }) => {
   return (
     <List>
       {movies.map((movie) => (
-        <ListItem key={movie.episode_id}>
+        <ListItem key={movie.episode_id} onClick={() => handleClick(movie)}>
           <Episode>{`EPISODE ${movie.episode_id}`}</Episode>
           <MovieTitle>{movie.title}</MovieTitle>
           <ReleaseDate>{movie.release_date}</ReleaseDate>
