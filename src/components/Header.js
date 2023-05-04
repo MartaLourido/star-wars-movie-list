@@ -18,9 +18,7 @@ const Header = ({ onSort, onSearch }) => {
   };
 
   const handleSearch = (event) => {
-    if (event.key === 'Enter') {
-      onSearch(event.target.value.toLowerCase());
-    }
+    onSearch(event.target.value);
   };
 
   return (
@@ -38,7 +36,7 @@ const Header = ({ onSort, onSearch }) => {
         </SortOptionsContainer>
       )}
       <SearchContainer>
-        <SearchInput type="text" placeholder="🔍 Search..." onKeyDown={handleSearch} />
+        <SearchInput type="text" placeholder="🔍 Search..." onChange={handleSearch} />
       </SearchContainer>
     </StyledHeader>
   );

@@ -25,32 +25,53 @@ const MoviesContainer = ({ sortBy, searchQuery }) => {
     fetchMovies();
   }, []);
 
+  useEffect(() => {
+    if (searchQuery) {
+      const foundMovie = movies.find(
+        (movie) => movie.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      if (foundMovie) {
+        setSelectedMovie(foundMovie);
+      }
+    } else {
+      setSelectedMovie(null);
+    }
+  }, [searchQuery, movies]);
+
   const handleClick = (movie) => {
     setSelectedMovie(movie);
   };
 
-  const filteredMovies = movies.filter(movie =>
-    movie.title.toLowerCase().includes(searchQuery?.toLowerCase() ?? '')
-  );  
-
-  const sortedMovies = filteredMovies.sort((movieA, movieB) => {
-    if (sortBy === 'episodes') {
-      return movieA.episode_id - movieB.episode_id;
-    } else if (sortBy === 'year') {
-      return new Date(movieA.release_date) - new Date(movieB.release_date);
-    }
-    return null;
-  });
+  const displayMovies = selectedMovie ? [selectedMovie] : movies;
 
   return (
     <Container>
       <LeftContainer>
-        <MovieList movies={sortedMovies} handleClick={handleClick} />
+        <MovieList
+          movies={displayMovies.sort((movieA, movieB) => {
+            if (sortBy === 'episodes') {
+              return movieA.episode_id - movieB.episode_id;
+            } else if (sortBy === 'year') {
+              return new Date(movieA.release_date) - new Date(movieB.release_date);
+            }
+            return null;
+          })}
+          handleClick={handleClick}
+        />
       </LeftContainer>
       <Divider />
       <RightContainer>
-        <h2>{selectedMovie?.title || 'No movie selected'}</h2>
-        <p>{selectedMovie?.opening_crawl || ''}</p>
+        {selectedMovie ? (
+          <>
+            <h2>{selectedMovie.title}</h2>
+            <p>{selectedMovie.opening_crawl}</p>
+          </>
+        ) : (
+          <>
+            <h2>No movie selected</h2>
+            <p></p>
+          </>
+        )}
       </RightContainer>
     </Container>
   );
