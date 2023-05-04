@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const List = styled.ul`
   display: flex;
   flex-direction: column;
+  font-family: Arial, Helvetica, sans-serif;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -10,7 +11,8 @@ export const List = styled.ul`
 
 export const ListItem = styled.li`
   align-items: center;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #F5F5F5;
+  cursor: pointer;
   display: flex;
   justify-content: space-between;
   padding: 8px;
