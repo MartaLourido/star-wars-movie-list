@@ -16,6 +16,10 @@ export const ListItem = styled.li`
   display: flex;
   justify-content: space-between;
   padding: 8px;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
 `;
 
 export const Episode = styled.div`

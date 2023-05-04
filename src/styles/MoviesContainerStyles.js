@@ -17,11 +17,7 @@ export const LeftContainer = styled.div`
 
 export const RightContainer = styled.div`
   background-color: #fff;
-`;
-
-export const Line = styled.div`
-  background-color: #000;
-  height: 100%;
+  padding-left: 16px;
 `;
 
 export const MovieList = styled.ul`
@@ -34,14 +30,4 @@ export const ListItem = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
-`;
-
-export const List = styled.ul`
-`;
-
-export const SelectedMovie = styled.div`
-  padding: 1rem;
-`;
-
-export const ListItemText = styled.div`
 `;
